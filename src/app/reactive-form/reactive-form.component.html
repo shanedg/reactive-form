@@ -13,9 +13,14 @@
       <input type="text" formControlName="lastName">
     </label>
   </form>
+
 </div>
 
 <pre>
-<strong>name formControl:</strong>
-{{ nameGroup.value | json }}
+<h2>debug</h2>
+<strong>nameGroup.value </strong>{{ nameGroup.value | json }}
+</pre>
+
+<pre *ngFor="let ctrl of controlsKeysToList(nameGroup)">
+<strong>nameGroup.controls.{{ ctrl.__super_private_debug_name_okay }}</strong> {{ formControlToJSON(ctrl) | json }}
 </pre>
