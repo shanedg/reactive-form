@@ -9,7 +9,7 @@ import {
 } from '@angular/forms';
 
 /**
- * ok
+ * Alias of form control base augmented with a very private key.
  */
 type NamedAbstractControl = AbstractControl & {
   __super_private_debug_name_okay: string,
@@ -23,7 +23,7 @@ type NamedAbstractControl = AbstractControl & {
 export class ReactiveFormComponent implements OnInit {
 
   /**
-   * yo
+   * Group controls input.
    */
   nameGroup = new FormGroup({
     firstName: new FormControl(''),
@@ -31,7 +31,7 @@ export class ReactiveFormComponent implements OnInit {
   });
 
   /**
-   * so
+   * Iterable list of form controls (for debug).
    */
   controlsList: NamedAbstractControl[];
 
@@ -41,10 +41,13 @@ export class ReactiveFormComponent implements OnInit {
   }
 
   /**
-   * uh
-   * @param group FormGroup with controls to list
+   * Create list of controls in given group.
+   * Augments each control with private key containing the control's name.
+   * Allows an isolated form control to be identified by name.
+   * @param group Form group with controls to list.
+   * @returns Iterable list of form controls for debug display.
    */
-  controlsKeysToList(group: FormGroup): NamedAbstractControl[] {
+  controlsKeysToList(group: FormGroup) {
 
     const controls = Object.assign({}, group.controls);
     const controlsList: NamedAbstractControl[] = [];
@@ -62,8 +65,10 @@ export class ReactiveFormComponent implements OnInit {
   }
 
   /**
-   * duh
-   * @param ctrl FormControl augmented with a very private key containing the control's name
+   * Remove form control properties with circular references.
+   * Enable binding form control piped to json for debug display.
+   * @param ctrl Form control augmented with a very private key containing the control's name
+   * @returns Copy of form control with circular references removed.
    */
   formControlToJSON(ctrl: NamedAbstractControl) {
 
