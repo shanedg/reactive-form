@@ -3,6 +3,7 @@ import {
   OnInit,
 } from '@angular/core';
 import {
+  FormBuilder,
   FormControl,
   FormGroup,
   AbstractControl,
@@ -23,11 +24,17 @@ type NamedAbstractControl = AbstractControl & {
 export class ReactiveFormComponent implements OnInit {
 
   /**
-   * Group controls input.
+   * Nested form builder model.
    */
-  nameGroup = new FormGroup({
-    firstName: new FormControl(''),
-    lastName: new FormControl(''),
+  profileForm = this.formBuilder.group({
+    firstName: [''],
+    lastName: [''],
+    address: this.formBuilder.group({
+      street: [''],
+      city: [''],
+      state: [''],
+      zip: ['']
+    }),
   });
 
   /**
@@ -35,13 +42,13 @@ export class ReactiveFormComponent implements OnInit {
    */
   controlsList: NamedAbstractControl[];
 
-  constructor() { }
+  constructor(private formBuilder: FormBuilder) { }
 
   ngOnInit() {
   }
 
   /**
-   * Create list of controls in given group.
+   * [debug] Create list of controls in given group.
    * Augments each control with private key containing the control's name.
    * Allows an isolated form control to be identified by name.
    * @param group Form group with controls to list.
@@ -65,12 +72,21 @@ export class ReactiveFormComponent implements OnInit {
   }
 
   /**
-   * Remove form control properties with circular references.
+   * [debug] Remove form control properties with circular references.
    * Enable binding form control piped to json for debug display.
    * @param ctrl Form control augmented with a very private key containing the control's name
    * @returns Copy of form control with circular references removed.
    */
-  formControlToJSON(ctrl: NamedAbstractControl) {
+  formControlToJSON(controls: NamedAbstractControl) {
+
+    const ctrl = Object.assign({}, controls);
+
+    if (ctrl.hasOwnProperty('controls')) {
+      /**
+       * [todo] can't handle nested form group recursion to controls yet
+       */
+      return 'logging nested controls not yet supported';
+    }
 
     const noCircularRefs = Object.assign({}, ctrl);
     for (const prop in ctrl) {

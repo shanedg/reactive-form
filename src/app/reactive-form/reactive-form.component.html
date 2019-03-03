@@ -2,7 +2,7 @@
   <p>
     reactive-form works!
   </p>
-  <form [formGroup]="nameGroup">
+  <form [formGroup]="profileForm">
     <label>
       first name:
       <input type="text" formControlName="firstName">
@@ -12,15 +12,34 @@
       last name:
       <input type="text" formControlName="lastName">
     </label>
+
+    <div formGroupName="address">
+      <label>
+        street:
+        <input type="text" formControlName="street">
+      </label>
+      <label>
+        city:
+        <input type="text" formControlName="city">
+      </label>
+      <label>
+        state:
+        <input type="text" formControlName="state">
+      </label>
+      <label>
+        zip:
+        <input type="text" formControlName="zip">
+      </label>
+    </div>
   </form>
 
 </div>
 
 <pre>
 <h2>debug</h2>
-<strong>nameGroup.value </strong>{{ nameGroup.value | json }}
+<strong>profileForm.value </strong>{{ profileForm.value | json }}
 </pre>
 
-<pre *ngFor="let ctrl of controlsKeysToList(nameGroup)">
-<strong>nameGroup.controls.{{ ctrl.__super_private_debug_name_okay }}</strong> {{ formControlToJSON(ctrl) | json }}
+<pre *ngFor="let ctrl of controlsKeysToList(profileForm)">
+<strong>profileForm.controls.{{ ctrl.__super_private_debug_name_okay }}</strong> {{ formControlToJSON(ctrl) | json }}
 </pre>
