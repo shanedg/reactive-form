@@ -1,11 +1,26 @@
-<p>
-  reactive-form works!
-</p>
-<label>
-  name:
-  <input type="text" [formControl]="name">
-</label>
+<div>
+  <p>
+    reactive-form works!
+  </p>
+  <form [formGroup]="nameGroup">
+    <label>
+      first name:
+      <input type="text" formControlName="firstName">
+    </label>
+
+    <label>
+      last name:
+      <input type="text" formControlName="lastName">
+    </label>
+  </form>
+
+</div>
+
 <pre>
-<strong>name formControl:</strong>
-{{ name | json }}
+<h2>debug</h2>
+<strong>nameGroup.value </strong>{{ nameGroup.value | json }}
+</pre>
+
+<pre *ngFor="let ctrl of controlsKeysToList(nameGroup)">
+<strong>nameGroup.controls.{{ ctrl.__super_private_debug_name_okay }}</strong> {{ formControlToJSON(ctrl) | json }}
 </pre>
