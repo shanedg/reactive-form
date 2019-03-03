@@ -1,3 +1,11 @@
 <p>
   reactive-form works!
 </p>
+<label>
+  name:
+  <input type="text" [formControl]="name">
+</label>
+<pre>
+<strong>name formControl:</strong>
+{{ name | json }}
+</pre>
