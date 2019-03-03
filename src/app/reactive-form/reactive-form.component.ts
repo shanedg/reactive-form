@@ -75,7 +75,7 @@ export class ReactiveFormComponent implements OnInit {
     let noCircularRefs = Object.assign({}, ctrl);
     for (const prop in ctrl) {
 
-      if (prop === '_parent') {
+      if (ctrl.hasOwnProperty(prop) && prop === '_parent') {
         delete noCircularRefs[prop];
       }
     }
