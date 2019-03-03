@@ -13,7 +13,7 @@ import {
  */
 type NamedAbstractControl = AbstractControl & {
   __super_private_debug_name_okay: string,
-}
+};
 
 @Component({
   selector: 'app-reactive-form',
@@ -56,7 +56,7 @@ export class ReactiveFormComponent implements OnInit {
       if (controls.hasOwnProperty(ctrl)) {
 
         const ctrlTaggedWithName: NamedAbstractControl = Object.assign({}, controls[ctrl], {
-          '__super_private_debug_name_okay': ctrl,
+          __super_private_debug_name_okay: ctrl,
         });
         controlsList.push(ctrlTaggedWithName);
       }
@@ -72,7 +72,7 @@ export class ReactiveFormComponent implements OnInit {
    */
   formControlToJSON(ctrl: NamedAbstractControl) {
 
-    let noCircularRefs = Object.assign({}, ctrl);
+    const noCircularRefs = Object.assign({}, ctrl);
     for (const prop in ctrl) {
 
       if (ctrl.hasOwnProperty(prop) && prop === '_parent') {
