@@ -90,9 +90,19 @@ export class ReactiveFormComponent implements OnInit {
 
     const noCircularRefs = Object.assign({}, ctrl);
     for (const prop in ctrl) {
+      if (ctrl.hasOwnProperty(prop)) {
+        /**
+         * These properties feature nasty, circular references.
+         * `valueChanges` only a problem when wrapping mat-input in mat-form-field.
+         */
+        const circularRefs = [
+          '_parent',
+          'valueChanges',
+        ];
 
-      if (ctrl.hasOwnProperty(prop) && prop === '_parent') {
-        delete noCircularRefs[prop];
+        if (circularRefs.indexOf(prop) > -1) {
+          delete noCircularRefs[prop];
+        }
       }
     }
 
