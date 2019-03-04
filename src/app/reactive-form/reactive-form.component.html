@@ -1,42 +1,34 @@
-<div>
-  <p>
-    reactive-form works!
-  </p>
+<mat-card>
   <form [formGroup]="profileForm">
-    <label>
-      first name:
-      <input type="text" formControlName="firstName">
-    </label>
+    <mat-form-field>
+      <input matInput placeholder="first name" formControlName="firstName">
+    </mat-form-field>
 
-    <label>
-      last name:
-      <input type="text" formControlName="lastName">
-    </label>
+    <br>
+    <mat-form-field>
+      <input matInput placeholder="last name" formControlName="lastName">
+    </mat-form-field>
 
     <div formGroupName="address">
-      <label>
-        street:
-        <input type="text" formControlName="street">
-      </label>
-      <label>
-        city:
-        <input type="text" formControlName="city">
-      </label>
-      <label>
-        state:
-        <input type="text" formControlName="state">
-      </label>
-      <label>
-        zip:
-        <input type="text" formControlName="zip">
-      </label>
+      <mat-form-field>
+        <input matInput placeholder="street" formControlName="street">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="city" formControlName="city">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="state" formControlName="state">
+      </mat-form-field>
+      <mat-form-field>
+        <input matInput placeholder="zip" formControlName="zip">
+      </mat-form-field>
     </div>
   </form>
 
-</div>
+</mat-card>
 
 <pre>
-<h2>debug</h2>
+<h2>debug:</h2>
 <strong>profileForm.value </strong>{{ profileForm.value | json }}
 </pre>
 
