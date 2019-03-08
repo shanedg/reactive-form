@@ -74,7 +74,7 @@ export class ReactiveFormComponent implements OnInit {
   /**
    * [debug] Remove form control properties with circular references.
    * Enable binding form control piped to json for debug display.
-   * @param ctrl Form control augmented with a very private key containing the control's name
+   * @param controls Form control augmented with a very private key containing the control's name.
    * @returns Copy of form control with circular references removed.
    */
   formControlToJSON(controls: NamedAbstractControl) {
@@ -89,19 +89,21 @@ export class ReactiveFormComponent implements OnInit {
     }
 
     const noCircularRefs = Object.assign({}, ctrl);
+
+    /**
+     * Properties in this list contain nasty, circular references.
+     * `_parent` references the form group which has a reference to this control.
+     * `valueChanges` only a problem when wrapping mat-input in mat-form-field (???).
+     */
+    const circularRefs = [
+      '_parent',
+      'valueChanges',
+    ];
+
     for (const prop in ctrl) {
       if (ctrl.hasOwnProperty(prop)) {
-        /**
-         * These properties feature nasty, circular references.
-         * `valueChanges` only a problem when wrapping mat-input in mat-form-field.
-         */
-        const circularRefs = [
-          '_parent',
-          'valueChanges',
-        ];
-
         if (circularRefs.indexOf(prop) > -1) {
-          delete noCircularRefs[prop];
+          noCircularRefs[prop] = 'OMITTED_CIRCULAR_REFERENCE';
         }
       }
     }
