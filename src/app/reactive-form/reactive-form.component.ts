@@ -38,7 +38,7 @@ export class ReactiveFormComponent implements OnInit {
   });
 
   /**
-   * Iterable list of form controls (for debug).
+   * [debug] Iterable list of form controls.
    */
   controlsList: NamedAbstractControl[];
 
